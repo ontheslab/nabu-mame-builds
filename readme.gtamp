@@ -1,0 +1,140 @@
+--Emulator for the NABU PC--
+
+This is a Windows x64 build of MAME compiled only with the NABU PC core. NABU core coded by brijohn.
+
+Compiled with make SOURCES=src/mame/nabu/nabupc.cpp REGENIE=1 -j8 and instructions from https://www.mamedev.org/tools/
+
+How to use:
+-----------
+
+Download and run a NABU Internet Adapter app from https://gtamp.com/nabu/
+Start TCP in your NABU Internet Adapter app
+Run nabu.cmd to connect to external NABU Internet Adapter 
+
+boot-3.5-floppy-image.cmd - I don't have an image to include, so ignore this one
+boot-5.25-floppy-image.cmd - push 2 for floppy disk and it boots CPM
+boot-built-in-adapter-local.cmd - uses the built-in network adapter to run breakout.npz 
+boot-built-in-adapter-remote.cmd - uses the built-in network adapter to run nabu.ca cycle
+boot-external-adapter.cmd - tries to connect to an external network adapter on 127.0.0.1:5816
+nabu.cmd - tries to connect to an external network adapter on 127.0.0.1:5816
+
+Default controls:
+
+||> = Page Down
+<||| = Page Up
+Yes = F1
+No = F2
+TV = F3
+SYM = F4
+
+You can restart most apps by holding SYM (F4) AND the += key
+
+If you have a game controller then the dpad and the left thumb stick are set to NABU joystick 1
+Joystick 1 is also mapped to the numeric keypad
+Joystick 2 isn't setup by default
+
+Default MAME UI settings:
+
+F3 to soft reset
+Shift F3 to hard reset
+F10 or hold Insert to speed it up
+Tab to bring up the MAME UI where you can redefine keys and setup joystick 2.
+Scroll Lock to toggle the UI keys on/off so they don't interfere with the NABU keys
+
+Example command line options:
+
+When starting mame you can use the following options to create a rs232 terminal setup -option<n> rs232 -option<n>:rs232:rs232 terminal. Where n is the slot number 1-4
+
+Inside CP/M doing device,conout=rs<n-1> will redirect your output to the terminal.
+
+Network boot:
+-------------
+
+External adapter app:
+mame nabupc -window -hcca null_modem -bitb socket.127.0.0.1:5816
+
+Built-in adapter:
+mame nabupc -window -hcca hcca_remote
+mame nabupc -window -hcca hcca_local -npz homebrew.npz
+
+homebrew.npz is just a .zip file renamed and containing 000001.nabu
+
+Floppy boot:
+------------
+
+5.25" floppy:
+mame nabupc -window -bios ver14 -option1 fdc -flop1 disks\leo1.img -flop2 disks\leo2.img
+
+3.5" floppy:
+mame nabupc -window -bios ver14 -option1 fdc -option1:fdc:fdc:0 35dd -flop1 boot_80.img
+
+Hard drive boot:
+----------------
+
+mame nabupc -window -bios ver14 -option1 hdd -hard hdd.chd
+
+BIOS choices:
+
+-bios reva
+-bios revb
+-bios ver14
+-bios ver17
+-bios ver29
+
+Show all the slot options:
+
+-listslots
+
+Changelog:
+
+2024-04-08
+- Fixed gcc 13 compilation
+- Allowed setting a server for hcca_remote
+- Removed DES decryption and added support for cycle 3 
+
+2023-11-28
+- paddle controls are no longer reversed
+- keyboard now uses nabukeyboard-90020070-revb-2716.bin (it fixes a bug with the port 2 paddle support)
+- mouse x axis set to control paddle 1, left mouse button mapped to joy left
+- enabled confirm quit (confirm_quit = 1 in nabupc.ini)
+- added more .cmd files to make things easier
+
+2023-05-15
+- mame.exe uses the 80 column V9938 patch from https://forums.nabu.ca/viewtopic.php?p=742#p742
+- mame-40col.exe for stock NABU TMS9918A
+
+2023-05-13
+- Updated key assignment UI for low level keyboard emulation
+
+2023-05-12
+- added low level keyboard emulation and paddle support
+
+2023-02-22
+- refactor disk formats / support DS disks
+- removed support for osborne disk type
+
+2022-12-30
+- Added rxrdy interrupt to rs232 card
+
+2022-12-29
+- Fix opening local 'socket.' files instead of actually opening a TCP socket
+
+2022-12-27
+- updated builtin network adapter with remote and local functions -hcca hcca_remote or -hcca hcca_local -npz <image>
+- changed caps lock to act like caps lock
+
+2022-12-25
+- Added RS232 board support
+- Removed hdd debugging LOG statements
+
+2022-12-20
+- HCCA uart transmit buffer starts empty
+- Network boot works on all BIOS versions (only the Cycles work on all versions, homebrew requires revA)
+
+2022-12-19
+- You can boot from unpatched NABU CPM images
+- Out of band track 0 data is only added to NABU CPM images
+- You can use both OSBORNE1 and NABU images
+- NABU uses the Internet Adapter by default, so it should work without any command line options or cfg files (patch by nathanel23)
+
+Updates can be found here: https://gtamp.com/nabu
