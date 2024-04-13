@@ -78,7 +78,7 @@ Additional binaries have been compiled for the following systems and can be down
 
 mame-arm32.zip – 32bit Raspberry Pi binaries.
 mame-arm64.zip – 64bit Raspberry Pi binaries.
-mame-linux86.zip – x86-64bit Linux binaries (included in this archive).
+mame-linux86.zip – x86-64bit Linux binaries (included in the nabu-linux.tar.gz archive).
 mame-macx86.zip – MacOSX (Intel 64bit) binaries.
 
 These builds (compiled) by “Intangybles” - https://github.com/ontheslab/nabu-mame-builds - Please excuse this rough and ready document.
