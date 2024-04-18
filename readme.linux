@@ -2,50 +2,68 @@
 
 This is a compilation of files to add full support for Linux to the Windows x64 build of MAME by GTAMP. The NABU core coded by brijohn.
 
-The base and configuration files are taken from GTAMP's Windows release, additional files that have been added and the scripts replaced.
+** Major Update (18/4/2024) in master code by brijohn: 
+nabupc: Slotify video device
+	nabupc: Add 9938 video slot device
 
-My ultimate goal is a relocatable "AppImage" for Linux - presently targeted at the Steam Deck.
+All files are taken from GTAMP's Windows release other than the additional files that have been added and the scripts replaced.
+
+The included Linux "mame" executable has been compiled from the above source as a 64bit Linux Binary. Please add your own compiled copy of mame should you wish.
+
+Please excuse this rough and ready document, I hope my documents are getting better!
+
+The ultimate goal is a relocatable "AppImage" - presently targeted at the Steam Deck – Please see the AppImage release section for details.
+
+* No changes have been made to the configuration files from those supplied by gtamp, so key definitions etc should all remain the same.
 
 Getting Started - How to use:
 -----------------------------
 
-Download and run a NABU Internet Adapter “app” of your choice (example from https://gtamp.com/nabu/)
-Start the “TCP” in your NABU Internet Adapter app
-Run boot-external-adapter.sh to connect to external NABU Internet Adapter
+Download and run a NABU Internet Adapter “app” of your choice (example from the links on gtamp’s site https://gtamp.com/nabu/)
+Start the “TCP” server in your NABU Internet Adapter app
+Run boot-external-adapter.sh to connect to external NABU Internet Adapter running (above) in 80col (using v9938 chip) mode.
 
-Binaries included (in this package):
+Binary included (in this package):
 
-mame40col-x86-64
- – Standard version using the TMS9918A video chip (40 Column).
-mame80col-x86-64
- – Enhanced version using the V9938 video chip (80 Column) *Note emulation is still lacking some features).
+mame
+ - New version with “slot” loading video cards
+ - To run in “Normal” mode (40 Column) using the TMS9918A video chip.
+	Default no cli option required (“-nabu_video tms9918a” is also valid).
+ - To run in “Enhanced” mode (80 Column) using the TMS9938 video chip.
+Use the cli option “-nabu_video tms9938”.
 
-(These binaries can be “renamed” as you wish)
+Example:
+./mame nabupc -window -hcca null_modem -bitb socket.127.0.0.1:5816
+-	(Normal 40col)
+./mame nabupc -window -nabu_video tms9938 -hcca null_modem -bitb socket.127.0.0.1:5816
+-	 (Enhanced 80col)
+
+This will try to connect to a "local" NABU Internet Adapter running on the same machine in 40col or 80col mode respectively.
 
 Description of the included scripts (bash):
 
 (These first scripts are the same as the Windows release for consistency)
 
 boot-3.5-floppy-image.sh
- - I don't have an image to include, so ignore this one
+ - I don't have an image to include, so ignore this one (40Col)
 boot-5.25-floppy-image.sh
- - push 2 for floppy disk and it boots CPM
+ - push 2 for floppy disk and it boots CPM (40Col)
 boot-built-in-adapter-local.sh
- - uses the built-in network adapter to run breakout.npz 
+ - uses the built-in network adapter to run breakout.npz (40Col) 
 boot-built-in-adapter-remote.sh
- - uses the built-in network adapter to run nabu.ca cycle
+ - uses the built-in network adapter to run nabu.ca cycle1 (40Col)
 boot-external-adapter.sh
- - tries to connect to an external network adapter on 127.0.0.1:5816
+ - tries to connect to an external network adapter on 127.0.0.1:5816 (80Col)
 
 (My sample scripts)
 
 runnabu-floppy.sh
- - Loads Floppy enabled rom (rev14) along with the internal (Internet Adapter) - push 2 for floppy disk and it boots CPM, 1 and it boots from using the internal adapter and loads "nabu.ca - cycle 1" (cycles 1 to 3 are selectable from the MAME “tab” menu.
+ - Loads Floppy enabled rom (rev14) along with the internal (Internet Adapter) - push 2 for floppy disk and it boots CPM, 1 and it boots from using the internal adapter and loads "nabu.ca - cycle 1" (cycles 1 to 3 are selectable from the MAME “tab” menu (40Col). 
 
-runnabu-external.sh
- - tries to connect to an external network adapter on 192.168.0.211:5816 (in this example, the IP address of my Pi server).
-
-
+runnabu-external40.sh
+ - tries to connect to an external network adapter on 192.168.0.211:5816 (in this example, the IP address of my Pi server) (40Col).
+runnabu-external80.sh
+ - tries to connect to an external network adapter on 192.168.0.211:5816 (in this example, the IP address of my Pi server) (80Col).
 
 Default controls:
 
@@ -58,17 +76,18 @@ SYM = F4
 
 You can restart most apps by holding SYM (F4) AND the += key
 
-All other functions are as stated in GTAMP’s readme.gtamp (read.me)file.
+All other functions are as stated in GTAMPS readme file (readme.gtamp).
+
 
 General notes on running under Linux:
 
 These Builds are based on MAME v250 that has been updated (by brijohn) with full NABU Pc Support.
 
-Generally speaking most “modern” Linux distributions will include the required libraries – such as SDL2, QT5 and glibc.
+Generally speaking, most “modern” Linux distributions will include the required libraries – such as SDL2, QT5 and glibc.
 
 Most common error: The distributions of Linux vary greatly, as stated above - SDL2 is installed on most distributions, however its optional font support is often NOT installed.
 
-You may get an error like this: "error while loading shared libraries: libSDL2_ttf-2.0.so.0: cannot open shared object file: No such file or directory"
+You may get an error like this: "error while loading shared libraries: libSDL2_ttf-2.0.so.0: cannot open shared object file: No such file or directory”.
 
 The SDL2 True Type Font library just needs to be installed - Ubuntu/Mint example: sudo apt install libsdl2-ttf-2.0-0  
 
@@ -78,11 +97,12 @@ Additional binaries have been compiled for the following systems and can be down
 
 mame-arm32.zip – 32bit Raspberry Pi binaries.
 mame-arm64.zip – 64bit Raspberry Pi binaries.
-mame-linux86.zip – x86-64bit Linux binaries (included in the nabu-linux.tar.gz archive).
+mame-linux86.zip – x86-64bit Linux binaries (included in the standard Linux archive).
 mame-macx86.zip – MacOSX (Intel 64bit) binaries.
 
-These builds (compiled) by “Intangybles” - https://github.com/ontheslab/nabu-mame-builds - Please excuse this rough and ready document.
+These builds (compiled) by “Intangybles” - https://github.com/ontheslab/nabu-mame-builds
 
-Lets call this Version 1.0.2
+Version 1.0.3 – This release
+Version 1.0.2a – Initial Release
 
 Please see “readme.gtamp” for change log.
