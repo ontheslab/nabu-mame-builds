@@ -87,6 +87,9 @@ Show all the slot options:
 
 Changelog:
 
+2024-04-18
+- TMS9918a and 9938 vdp cores in a single build. The default is the tms9918a but you can change it by going into the tab menu and selecting "Slot Devices" or boot directly by adding "-nabu_video tms9938" to the CLI when you start the emulator.
+
 2024-04-08
 - Fixed gcc 13 compilation
 - Allowed setting a server for hcca_remote
