@@ -3,7 +3,7 @@
 This is a compilation of files to add full support for Linux to the Windows x64 build of MAME by GTAMP. The NABU core coded by brijohn.
 
 ** Major Update (18/4/2024) in master code by brijohn: 
-nabupc: Slotify video device
+	nabupc: Slotify video device
 	nabupc: Add 9938 video slot device
 
 All files are taken from GTAMP's Windows release other than the additional files that have been added and the scripts replaced.
@@ -30,13 +30,13 @@ mame
  - To run in “Normal” mode (40 Column) using the TMS9918A video chip.
 	Default no cli option required (“-nabu_video tms9918a” is also valid).
  - To run in “Enhanced” mode (80 Column) using the TMS9938 video chip.
-Use the cli option “-nabu_video tms9938”.
+	Use the cli option “-nabu_video tms9938”.
 
 Example:
 ./mame nabupc -window -hcca null_modem -bitb socket.127.0.0.1:5816
--	(Normal 40col)
+	-	(Normal 40col)
 ./mame nabupc -window -nabu_video tms9938 -hcca null_modem -bitb socket.127.0.0.1:5816
--	 (Enhanced 80col)
+	-	(Enhanced 80col)
 
 This will try to connect to a "local" NABU Internet Adapter running on the same machine in 40col or 80col mode respectively.
 
