@@ -2,6 +2,10 @@
 
 This is a compilation of files to add full support for Linux to the Windows x64 build of MAME by GTAMP. The NABU core coded by brijohn.
 
+** Minor Update: (3/4/2025) by GTAMP
+
+    Fixed TM9938 clock speed
+
 ** Major Update (18/4/2024) in master code by brijohn: 
 	nabupc: Slotify video device
 	nabupc: Add 9938 video slot device
@@ -102,7 +106,9 @@ mame-macx86.zip – MacOSX (Intel 64bit) binaries.
 
 These builds (compiled) by “Intangybles” - https://github.com/ontheslab/nabu-mame-builds
 
-Version 1.0.3 – This release
+Version 1.0.4 - Current Version
+Version 1.0.3 – Last release
 Version 1.0.2a – Initial Release
 
 Please see “readme.gtamp” for change log.
+
