@@ -87,6 +87,9 @@ Show all the slot options:
 
 Changelog:
 
+2025-04-03
+- Fixed TM9938 clock speed
+
 2024-04-18
 - TMS9918a and 9938 vdp cores in a single build. The default is the tms9918a but you can change it by going into the tab menu and selecting "Slot Devices" or boot directly by adding "-nabu_video tms9938" to the CLI when you start the emulator.
 
@@ -139,5 +142,6 @@ Changelog:
 - Out of band track 0 data is only added to NABU CPM images
 - You can use both OSBORNE1 and NABU images
 - NABU uses the Internet Adapter by default, so it should work without any command line options or cfg files (patch by nathanel23)
+
 
 Updates can be found here: https://gtamp.com/nabu
