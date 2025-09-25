@@ -2,6 +2,20 @@
 
 This is a compilation of files to add full support for Linux to the Windows x64 build of MAME by GTAMP. The NABU core coded by brijohn.
 
+** Minor Update: (Sep 2025) by brijohn
+
+    Includes support for LaBomb's Patched Ver14 BIOS
+
+    BIOS choices now include:
+
+         -bios reva
+         -bios revb
+         -bios ver14
+         -bios ver17
+         -bios ver29
+         -bios opennabu
+         -bios ver14p
+
 ** Minor Update: (3/4/2025) by GTAMP
 
     Fixed TM9938 clock speed
@@ -99,16 +113,16 @@ Thank you, I hope this helps get more Linux users up and running in an easy mann
 
 Additional binaries have been compiled for the following systems and can be downloaded separately – they can be used to replace the included “x86 Linux” binaries.
 
-mame-arm32.zip – 32bit Raspberry Pi binaries.
-mame-arm64.zip – 64bit Raspberry Pi binaries.
+mame-arm32.zip – 32bit Raspberry Pi binaries. (Now old)
+mame-arm64.zip – 64bit Raspberry Pi binaries. (Now old)
 mame-linux86.zip – x86-64bit Linux binaries (included in the standard Linux archive).
 mame-macx86.zip – MacOSX (Intel 64bit) binaries.
 
 These builds (compiled) by “Intangybles” - https://github.com/ontheslab/nabu-mame-builds
 
-Version 1.0.4 - Current Version
-Version 1.0.3 – Last release
+Version 1.0.5 - Current Version
+Version 1.0.4 - Last release
+Version 1.0.3 – Second release
 Version 1.0.2a – Initial Release
 
 Please see “readme.gtamp” for change log.
-
